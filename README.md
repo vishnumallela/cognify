@@ -1,11 +1,11 @@
-# Cognify
+# Zencognify
 
 A Python package for document ingestion and processing with vector store capabilities.
 
 ## Installation
 
 ```bash
-pip install cognify
+pip install zencognify
 ```
 
 ## Features
