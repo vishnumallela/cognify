@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cognify"
+version = "0.1.0"
+description = "Document ingestion and processing package with vector store and graph capabilities"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "langchain>=0.3.0",
+    "langchain-openai>=0.2.0",
+    "langchain-qdrant>=1.1.0",
+    "langchain-text-splitters>=0.3.0",
+    "langchain-core>=0.3.0",
+    "qdrant-client>=1.15.1",
+    "docling>=1.0.0",
+    "python-dotenv>=1.0.0",
+    "openai>=1.0.0",
+    "tiktoken>=0.5.0",
+]
+authors = [
+    {name = "Cognify Team"}
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+]
+
+[project.urls]
+Homepage = "https://github.com/your-username/cognify"
+Repository = "https://github.com/your-username/cognify.git"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["cognify*"]
+
+[dependency-groups]
+dev = [
+    "twine>=6.2.0",
+]
