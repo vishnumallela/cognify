@@ -20,6 +20,7 @@ jobs:
     - name: Install build dependencies
       run: |
         uv add --dev build twine
+        uv sync
         
     - name: Build package
       run: |
@@ -27,11 +28,11 @@ jobs:
         
     - name: Check package
       run: |
-        twine check dist/*
+        uv run twine check dist/*
         
     - name: Upload to PyPI
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
       run: |
-        twine upload dist/*
+        uv run twine upload dist/*
