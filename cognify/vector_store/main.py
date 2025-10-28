@@ -117,16 +117,6 @@ class VectorStore:
         return True
 
     def bulk_url_upload(self, collection_name: str, urls: List[str]) -> Dict[str, Any]:
-        """
-        Upload multiple documents from URLs in bulk.
-        
-        Args:
-            collection_name: Name of the collection to store documents
-            urls: List of URLs to process
-            
-        Returns:
-            Dictionary containing upload results and statistics
-        """
         collection = QdrantVectorStore(
             client=self.qdrant_client,
             collection_name=collection_name,
@@ -194,3 +184,33 @@ class VectorStore:
         print(f"  Failed: {results['failed_uploads']}")
         
         return results
+
+    def search(self, collection_name: str, query: str, top_k: int = 5, filter_metadata: Optional[Dict[str, Any]] = None) -> List[Document]:
+        collection = QdrantVectorStore(
+            client=self.qdrant_client,
+            collection_name=collection_name,
+            embedding=self.embeddings,
+        )
+        
+        qdrant_filter = None
+        if filter_metadata:
+            conditions = []
+            for key, value in filter_metadata.items():
+                conditions.append(FieldCondition(key=key, match=MatchValue(value=value)))
+            qdrant_filter = Filter(should=conditions)
+        
+        results = collection.similarity_search_with_score(
+            query=query, 
+            k=top_k, 
+            filter=qdrant_filter
+        )
+        
+        return results
+
+    def search_by_document(self, collection_name: str, query: str, document_id: str, top_k: int = 5) -> List[Document]:
+        return self.search(
+            collection_name=collection_name,
+            query=query,
+            top_k=top_k,
+            filter_metadata={"document_id": document_id}
+        )
