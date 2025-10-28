@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "cognify"
+name = "zencognify"
 version = "0.1.0"
 description = "Document ingestion and processing package with vector store and graph capabilities"
 readme = "README.md"
